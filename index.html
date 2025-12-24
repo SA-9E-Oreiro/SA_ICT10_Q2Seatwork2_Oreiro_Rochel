@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>GWA Calculator</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <!-- Load PyScript -->
     <link rel="stylesheet" href="https://pyscript.net/releases/2023.11.1/core.css" />
     <script type="module" src="https://pyscript.net/releases/2023.11.1/core.js"></script>
     <style>
@@ -130,31 +129,21 @@
             <div id="status" class="loading">Enter your grades and click Calculate GWA</div>
         </div>
     </div>
-
-    <!-- PyScript Configuration -->
     <py-config>
         packages = []
         [[fetch]]
         from = "."
         files = ["calculator.py"]
     </py-config>
-
-    <!-- MAIN PYTHON CODE - Put this in a separate script tag -->
     <script type="py" src="calculator.py"></script>
-    
-    <!-- JavaScript to handle the button click -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const button = document.getElementById('calculate-btn');
             const output = document.getElementById('output');
             const status = document.getElementById('status');
-            
-            // Show initial message
             status.textContent = "Enter your grades and click Calculate GWA";
             output.style.display = "block";
-            
             button.addEventListener('click', function() {
-                // Get all values
                 const firstName = document.getElementById('first_name').value.trim();
                 const lastName = document.getElementById('last_name').value.trim();
                 const science = document.getElementById('science').value;
@@ -163,8 +152,7 @@
                 const filipino = document.getElementById('filipino').value;
                 const ict = document.getElementById('ict').value;
                 const pe = document.getElementById('pe').value;
-                
-                // Basic validation
+            
                 if (!firstName || !lastName) {
                     status.innerHTML = '<span class="error">Please enter your first and last name</span>';
                     return;
@@ -176,7 +164,6 @@
                 }
                 
                 try {
-                    // Convert to numbers
                     const scienceNum = parseFloat(science);
                     const mathNum = parseFloat(math);
                     const englishNum = parseFloat(english);
@@ -184,14 +171,11 @@
                     const ictNum = parseFloat(ict);
                     const peNum = parseFloat(pe);
                     
-                    // Calculate GWA
                     const units = [5, 5, 5, 3, 2, 1];
                     const weightedSum = (scienceNum * 5 + mathNum * 5 + englishNum * 5 + 
                                         filipinoNum * 3 + ictNum * 2 + peNum * 1);
                     const totalUnits = 21;
                     const gwa = weightedSum / totalUnits;
-                    
-                    // Format the result
                     const resultText = `Name: ${firstName} ${lastName}\n\n` +
                                      `Science: ${scienceNum}\n` +
                                      `Math: ${mathNum}\n` +
@@ -200,8 +184,6 @@
                                      `ICT: ${ictNum}\n` +
                                      `PE: ${peNum}\n\n` +
                                      `Your general weighted average is ${gwa.toFixed(2)}`;
-                    
-                    // Display result
                     status.style.display = "none";
                     output.innerText = resultText;
                     output.style.display = "block";
